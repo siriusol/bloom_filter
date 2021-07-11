@@ -16,7 +16,7 @@ type BloomFilterConfig struct {
 
 /**
 Create a bloom filter and use exact size.
- */
+*/
 func NewBloomFilter(length int64) *BloomFilter {
 	return &BloomFilter{
 		length: length,
