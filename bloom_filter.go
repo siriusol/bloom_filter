@@ -1,7 +1,7 @@
 package bloom_filter
 
 import (
-	"ther.cool/bloom_filter/hash"
+	"github/siriusol/bloom_filter/hash"
 )
 
 type BloomFilter struct {
@@ -26,6 +26,10 @@ func NewBloomFilter(length int64) *BloomFilter {
 
 func (bf *BloomFilter) Init(items []int64, config BloomFilterConfig) {
 	bf.hashes = config.hashes
+	bf.Add(items...)
+}
+
+func (bf *BloomFilter) Add(items ...int64) {
 	for _, item := range items {
 		for _, helper := range bf.hashes {
 			bf.filter[helper.Hash(item)] = 1
@@ -34,12 +38,10 @@ func (bf *BloomFilter) Init(items []int64, config BloomFilterConfig) {
 }
 
 func (bf *BloomFilter) Contain(item int64) bool {
-	isContained := true
 	for _, helper := range bf.hashes {
 		if bf.filter[helper.Hash(item)] == 0 {
-			isContained = false
-			break
+			return false
 		}
 	}
-	return isContained
+	return true
 }

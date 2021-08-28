@@ -1,3 +1,3 @@
-module ther.cool/bloom_filter
+module github/siriusol/bloom_filter
 
 go 1.14
